@@ -12,10 +12,19 @@ interface Props {
 export const VerifyEmail: FC<Props> = ({ className }) => {
   return (
     <section
-      className={cn("h-full flex justify-center items-center pt-16", className)}
+      className={cn("h-full flex justify-center items-center py-16", className)}
     >
       <Container>
-        <AuthCard title="Подтверждение почты">
+        <AuthCard
+          title="Подтверждение почты"
+          description={
+            <>
+              Одноразовый код отправлен на почту{" "}
+              <b>danidagosudarev@gmail.com</b>. Введите его ниже, чтобы
+              продолжить.
+            </>
+          }
+        >
           <VerifyEmailForm />
         </AuthCard>
       </Container>

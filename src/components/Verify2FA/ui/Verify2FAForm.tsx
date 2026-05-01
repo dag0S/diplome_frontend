@@ -22,17 +22,17 @@ interface Props {
   className?: string;
 }
 
-const verifyEmailFormSchema = z.object({
+const verify2FAFormSchema = z.object({
   otp: z.string(),
 });
 
-export type IVerifyEmailForm = z.infer<typeof verifyEmailFormSchema>;
+export type IVerify2FAForm = z.infer<typeof verify2FAFormSchema>;
 
-export const VerifyEmailForm: FC<Props> = ({ className }) => {
+export const Verify2FAForm: FC<Props> = ({ className }) => {
   const router = useRouter();
 
-  const form = useForm<IVerifyEmailForm>({
-    resolver: zodResolver(verifyEmailFormSchema),
+  const form = useForm<IVerify2FAForm>({
+    resolver: zodResolver(verify2FAFormSchema),
     defaultValues: {
       otp: "",
     },
@@ -41,7 +41,7 @@ export const VerifyEmailForm: FC<Props> = ({ className }) => {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["auth user"],
-    mutationFn: (data: IVerifyEmailForm) => authService.verifyEmail(data),
+    mutationFn: (data: IVerify2FAForm) => authService.verifyEmail(data),
     onSuccess() {
       form.reset();
       toast.success("Вы вошли в систему");
@@ -57,13 +57,13 @@ export const VerifyEmailForm: FC<Props> = ({ className }) => {
     },
   });
 
-  const onSubmit: SubmitHandler<IVerifyEmailForm> = (data) => {
+  const onSubmit: SubmitHandler<IVerify2FAForm> = (data) => {
     mutate(data);
   };
 
   return (
     <form
-      id="verify-email-form"
+      id="verify-2fa-form"
       onSubmit={form.handleSubmit(onSubmit)}
       className={cn("flex flex-col gap-4", className)}
     >
@@ -72,26 +72,25 @@ export const VerifyEmailForm: FC<Props> = ({ className }) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field className="w-full">
-            <FieldLabel htmlFor="verify-email-form-otp">
+            <FieldLabel htmlFor="verify-2fa-form-totp">
               Одноразовый код
             </FieldLabel>
-              <InputOTP
-                maxLength={6}
-                id="verify-email-form-otp"
-                required
-                pattern="^\d+$"
-                style={{ width: "100%" }}
-                {...field}
-              >
-                <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-full *:data-[slot=input-otp-slot]:text-xl w-full">
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
+            <InputOTP
+              maxLength={6}
+              id="verify-2fa-form-totp"
+              required
+              pattern="^\d+$"
+              {...field}
+            >
+              <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-full *:data-[slot=input-otp-slot]:text-xl w-full">
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
             {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}

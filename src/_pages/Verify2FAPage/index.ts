@@ -1,0 +1,1 @@
+export {metadata, default as Verify2FAPage} from './ui/Verify2FAPage'

@@ -6,6 +6,7 @@ import { Header } from "@/src/components/Header";
 import { Providers } from "@/src/providers/Providers";
 
 import "../../shared/styles/globals.css";
+import { Footer } from "@/src/components/Footer";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -30,10 +31,13 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", "font-sans", roboto.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-accent">
+      <body className="bg-accent">
         <Providers>
-          <Header />
-          <main>{children}</main>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

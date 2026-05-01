@@ -6,7 +6,7 @@ import { AuthCard } from "../../AuthCard";
 
 export const Login: FC = () => {
   return (
-    <section className="h-full flex justify-center items-center pt-16">
+    <section className="h-full flex justify-center items-center py-16">
       <Container>
         <AuthCard title="Вход">
           <LoginForm />

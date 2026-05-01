@@ -19,11 +19,19 @@ export const Header: FC = () => {
             loading="eager"
           />
         </Link>
-        <Link href="/login">
-          <Button variant="ghost">
-            Войти <LogIn />
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/">
+            <Button variant="ghost">Главная</Button>
+          </Link>
+          <Link href="/consultations">
+            <Button variant="ghost">Мои консультации</Button>
+          </Link>
+          <Link href="/login">
+            <Button variant="ghost">
+              Войти <LogIn />
+            </Button>
+          </Link>
+        </div>
       </Container>
     </header>
   );

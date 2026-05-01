@@ -241,7 +241,9 @@ export const RegisterForm: FC<Props> = ({ className }) => {
       <Button type="submit" className="w-full" disabled={isPending}>
         Зарегистрироваться
       </Button>
-      <div className="text-center">Уже есть аккаунта?</div>
+      <div className="text-center text-muted-foreground">
+        Уже есть аккаунта?
+      </div>
       <Link href="/login">
         <Button variant="secondary" className="w-full" disabled={isPending}>
           Войти

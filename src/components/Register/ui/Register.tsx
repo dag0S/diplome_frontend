@@ -12,7 +12,7 @@ interface Props {
 export const Register: FC<Props> = ({ className }) => {
   return (
     <section
-      className={cn("h-full flex justify-center items-center pt-16", className)}
+      className={cn("h-full flex justify-center items-center py-16", className)}
     >
       <Container>
         <AuthCard title="Регистрация">

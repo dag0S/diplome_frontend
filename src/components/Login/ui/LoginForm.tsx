@@ -110,7 +110,7 @@ export const LoginForm: FC<Props> = ({ className }) => {
       <Button type="submit" className="w-full" disabled={isPending}>
         Войти
       </Button>
-      <div className="text-center">Нет аккаунта?</div>
+      <div className="text-center text-muted-foreground">Нет аккаунта?</div>
       <Link href="/register">
         <Button variant="secondary" className="w-full" disabled={isPending}>
           Зарегистрироваться
