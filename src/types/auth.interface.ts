@@ -18,3 +18,11 @@ export interface IRegisterForm {
 export interface IAuthResponse {
   accessToken: string;
 }
+
+export interface ISetup2FAResponse {
+  issuer: string;
+  label: string;
+  secret: string;
+  otpauthUrl: string;
+}
+

@@ -72,10 +72,10 @@ export const RegisterForm: FC<Props> = ({ className }) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["auth user"],
     mutationFn: (data: IRegisterForm) => authService.register(data),
-    onSuccess() {
+    onSuccess(data, dataForm) {
       form.reset();
-      toast.success("Вы вошли в систему");
-      router.replace("/");
+      toast.success(data.message);
+      router.replace(`/verify-email?email=${dataForm.email}`);
     },
     onError(error) {
       console.log(error);

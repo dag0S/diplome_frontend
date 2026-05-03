@@ -6,7 +6,7 @@ import z from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { cn } from "@/src/shared/lib";
 import { authService } from "@/src/services/auth/auth.service";
@@ -20,30 +20,34 @@ import {
 
 interface Props {
   className?: string;
+  email: string;
 }
 
 const verify2FAFormSchema = z.object({
-  otp: z.string(),
+  code: z.string(),
 });
 
 export type IVerify2FAForm = z.infer<typeof verify2FAFormSchema>;
 
-export const Verify2FAForm: FC<Props> = ({ className }) => {
+export const Verify2FAForm: FC<Props> = ({ className, email }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const form = useForm<IVerify2FAForm>({
     resolver: zodResolver(verify2FAFormSchema),
     defaultValues: {
-      otp: "",
+      code: "",
     },
     mode: "onChange",
   });
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["auth user"],
-    mutationFn: (data: IVerify2FAForm) => authService.verifyEmail(data),
+    mutationFn: (data: IVerify2FAForm) =>
+      authService.verify2FA({ ...data, email }),
     onSuccess() {
       form.reset();
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
       toast.success("Вы вошли в систему");
       router.replace("/");
     },
@@ -68,7 +72,7 @@ export const Verify2FAForm: FC<Props> = ({ className }) => {
       className={cn("flex flex-col gap-4", className)}
     >
       <Controller
-        name="otp"
+        name="code"
         control={form.control}
         render={({ field, fieldState }) => (
           <Field className="w-full">

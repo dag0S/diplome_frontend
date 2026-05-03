@@ -32,6 +32,14 @@ axiosWithAuth.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest = error.config;
+    const data = error.response?.data;
+
+    const normalizedError = {
+      message: Array.isArray(data?.message)
+        ? data.message[0]
+        : data?.message || "Неизвестная ошибка",
+      statusCode: data?.statusCode || 500,
+    };
 
     if (
       (error?.response?.status === 401 ||
@@ -52,7 +60,7 @@ axiosWithAuth.interceptors.response.use(
       }
     }
 
-    throw error;
+    return Promise.reject(normalizedError);
   },
 );
 

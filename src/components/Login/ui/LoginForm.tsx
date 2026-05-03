@@ -16,7 +16,7 @@ import {
 import { Input } from "@/src/shared/shadcn/ui/input";
 import { Button } from "@/src/shared/shadcn/ui/button";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "@/src/services/auth/auth.service";
 import toast from "react-hot-toast";
 
@@ -33,6 +33,7 @@ type ILoginForm = z.infer<typeof loginFormSchema>;
 
 export const LoginForm: FC<Props> = ({ className }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const form = useForm<ILoginForm>({
     resolver: zodResolver(loginFormSchema),
@@ -49,10 +50,21 @@ export const LoginForm: FC<Props> = ({ className }) => {
     onSuccess() {
       form.reset();
       toast.success("Вы вошли в систему");
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
       router.replace("/");
     },
-    onError(error) {
+    onError(error, dataForm) {
       if (error.message) {
+        
+        if (error.message === "Почта не подтверждена, код отправлен на почту") {
+          toast.error(error.message);
+          router.replace(`/verify-email?email=${dataForm.email}`);
+        }
+        
+        if (error.message === "Включена двухфакторная аутентификация") {
+          router.replace(`/verify-2fa?email=${dataForm.email}`);
+        }
+
         toast.error(error.message);
       } else {
         toast.error("Ошибка при авторизации");

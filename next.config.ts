@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     APP_URL: process.env.APP_URL,
     APP_DOMAIN: process.env.APP_DOMAIN,
     SERVER_URL: process.env.SERVER_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
   },
 };
 
