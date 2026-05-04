@@ -10,3 +10,11 @@ export interface IUser {
   isEmailVerified: boolean;
   isTwoFactorEnabled: boolean;
 }
+
+export interface IDoctor {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  role: Role;
+}

@@ -230,7 +230,7 @@ export const PersonalAccountDoctor: FC<Props> = ({ className }) => {
         )}
 
         <Dialog open={openEnableModal} onOpenChange={setOpenEnableModal}>
-          <DialogContent className="sm:max-w-sm">
+          <DialogContent className="sm:max-w-sm max-h-[90vh] overflow-y-auto overflow-x-clip">
             <DialogHeader>
               <DialogTitle>Настройка двухфакторной аутентификации</DialogTitle>
               <DialogDescription>
