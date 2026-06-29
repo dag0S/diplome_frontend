@@ -23,7 +23,7 @@ export const AuthCard: FC<Props> = ({
   description,
 }) => {
   return (
-    <Card className={cn("w-sm", className)}>
+    <Card className={cn("w-[350] sm:w-sm", className)}>
       <CardHeader className="gap-4">
         <CardTitle className="text-xl text-center">{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}

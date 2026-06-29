@@ -30,7 +30,7 @@ export const Verify2FA: FC<Props> = ({ className }) => {
       <Container>
         <AuthCard
           title="Двухфакторная аутентификация"
-          description="Введите шестизначный код TOTP, созданный в вашем приложении для аутентификации."
+          description="Введите шестизначный TOTP-код, созданный в Вашем приложении для аутентификации"
         >
           <Verify2FAForm email={email} />
         </AuthCard>

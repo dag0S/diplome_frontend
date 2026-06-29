@@ -234,8 +234,8 @@ export const PersonalAccountDoctor: FC<Props> = ({ className }) => {
             <DialogHeader>
               <DialogTitle>Настройка двухфакторной аутентификации</DialogTitle>
               <DialogDescription>
-                Отсканируйте QR-коде или введите секретный ключ вручную в Вашем
-                приложении для аутентификации с помощью TOTP-кодов.
+                Отсканируйте QR-код или введите секретный ключ вручную в Вашем
+                приложении для аутентификации.
               </DialogDescription>
             </DialogHeader>
             <div className="flex justify-center">
@@ -312,10 +312,13 @@ export const PersonalAccountDoctor: FC<Props> = ({ className }) => {
         <Dialog open={openDisableModal} onOpenChange={setOpenDisableModal}>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
-              <DialogTitle>Выключение двухфакторной аутентификации</DialogTitle>
+              <DialogTitle>
+                Выключение двухфакторной
+                <hr /> аутентификации
+              </DialogTitle>
               <DialogDescription>
                 Чтобы отключить двухфакторную аутентификацию, введите TOTP-код
-                сгенерированный в вашем приложении для аутентификации.
+                сгенерированный в Вашем приложении для аутентификации.
               </DialogDescription>
             </DialogHeader>
             <form
