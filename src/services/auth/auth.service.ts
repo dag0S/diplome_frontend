@@ -61,6 +61,19 @@ class AuthService {
     return res.data;
   }
 
+  async remove() {
+    const res = await axiosWithAuth<{ message: string }>({
+      url: "/auth/remove",
+      method: "DELETE",
+    });
+
+    if (res.data) {
+      removeFromStorage();
+    }
+
+    return res.data;
+  }
+
   async verifyEmail(data: IVerifyEmailForm) {
     const res = await axiosClassic<IAuthResponse>({
       url: "/auth/verify-otp",

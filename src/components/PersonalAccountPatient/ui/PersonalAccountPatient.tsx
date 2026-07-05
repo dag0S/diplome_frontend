@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FC } from "react";
-import { ArrowLeft, BadgeX, Verified } from "lucide-react";
+import { ArrowLeft, BadgeX, LogOut, Trash, Verified } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -154,6 +154,23 @@ export const PersonalAccountPatient: FC<Props> = ({ className }) => {
     },
   });
 
+  const { mutate: remove } = useMutation({
+    mutationKey: ["remove"],
+    mutationFn: () => authService.remove(),
+    onSuccess(data) {
+      queryClient.setQueryData(["profile"], null);
+      toast.success(data.message);
+      router.replace("/login");
+    },
+    onError(error) {
+      if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error("Ошибка при выходе из аккаунта");
+      }
+    },
+  });
+
   const fio = `${user?.lastName} ${user?.firstName} ${user?.middleName}`;
 
   return (
@@ -180,10 +197,17 @@ export const PersonalAccountPatient: FC<Props> = ({ className }) => {
                   </Avatar>
                   <Button
                     variant="destructive"
-                    className="w-full"
+                    className="w-full mb-4"
                     onClick={() => logout()}
                   >
-                    Выйти
+                    <LogOut /> Выйти
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => remove()}
+                  >
+                    <Trash /> Удалить
                   </Button>
                 </div>
                 <div className="w-full">
