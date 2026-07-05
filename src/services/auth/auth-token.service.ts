@@ -13,11 +13,14 @@ export const getAccessToken = () => {
 export const saveToStorage = (accessToken: string) => {
   Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
     domain: process.env.APP_DOMAIN,
-    sameSite: "strict",
+    sameSite: "none",
     expires: 1,
   });
 };
 
 export const removeFromStorage = () => {
-  Cookies.remove(EnumTokens.ACCESS_TOKEN);
+  Cookies.remove(EnumTokens.ACCESS_TOKEN, {
+    domain: process.env.APP_DOMAIN,
+    path: "/",
+  });
 };
